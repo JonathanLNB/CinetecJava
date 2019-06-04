@@ -39,27 +39,27 @@ public class Idioma {
     }
 
     public void insert() {
-        query = "INSERT INTO idioma(idioma) VALUES ('" + idioma + "')";
+        query = "INSERT INTO idiomas(idioma) VALUES ('" + idioma + "')";
         executeQuery(query, true);
     }
 
     public List<Idioma> mostrarTodas() {
-        query = "SELECT * FROM idioma";
+        query = "SELECT * FROM idiomas";
         return executeQuery(query, false);
     }
 
     public List<Idioma> buscar(String busqueda) {
-        query = "SELECT * FROM idioma WHERE upper(idioma) like upper('%" + busqueda + "%') ";
+        query = "SELECT * FROM idiomas WHERE upper(idioma) like upper('%" + busqueda + "%') ";
         return executeQuery(query, false);
     }
 
     public void update() {
-        query = "UPDATE idioma SET idioma = '" + idioma + "' WHERE idIdioma = " + idIdioma;
+        query = "UPDATE idiomas SET idiomas = '" + idioma + "' WHERE idIdioma = " + idIdioma;
         executeQuery(query, true);
     }
 
     public void delete() {
-        query = "DELETE FROM idioma WHERE idIdioma = " + idIdioma;
+        query = "DELETE FROM idiomas WHERE idIdioma = " + idIdioma;
         executeQuery(query, true);
     }
 

@@ -2,7 +2,7 @@ package DataBase;
 import java.sql.Connection;
 import java.sql.DriverManager;
 public class Conexion {
-    private String cadenaconexion="jdbc:postgresql://localhost:5432/cinetec";
+    private String cadenaconexion="jdbc:postgresql://localhost:5432/cinetecj";
     private String user="jonalnb";
     private String pass="fsd74126";
     private String driver= "org.postgresql.Driver";

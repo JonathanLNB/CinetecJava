@@ -17,11 +17,19 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlRootElement(name = "Pelicula")
 public class Pelicula {
     private int idPelicula;
-    private String titulo, sinopsis;
+    private String titulo, sinopsis, clasificacion;
     private int duracion;
     private int idclasificacion;
     private String query;
     private List<Genero> generos;
+
+    public String getClasificacion() {
+        return clasificacion;
+    }
+
+    public void setClasificacion(String clasificacion) {
+        this.clasificacion = clasificacion;
+    }
 
     @XmlElement(required = true)
     public int getIdPelicula() {
@@ -68,7 +76,7 @@ public class Pelicula {
         this.sinopsis = sinopsis;
     }
 
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     public void setGeneros(List<Genero> generos) {
         this.generos = generos;
     }
@@ -76,10 +84,10 @@ public class Pelicula {
     public List<Genero> getGeneros() {
         return generos;
     }
-
     public void insert() {
         query = "INSERT INTO pelicula(titulo, sinopsis, duracion, idclasificacion) VALUES ('" + titulo + "', '" + sinopsis + "', " + duracion + ", " + idclasificacion + ")";
         executeQuery(query, true);
+        System.out.println("llegue");
         insertGeneros();
     }
 
@@ -90,12 +98,12 @@ public class Pelicula {
     }
 
     public List<Pelicula> mostrarTodas() {
-        query = "SELECT idpelicula, titulo, sinopsis, duracion, clasificacion FROM pelicula p join clasificacion using(idclasificacion)";
+        query = "SELECT idpelicula, titulo, sinopsis, duracion, idclasificacion, clasificacion FROM pelicula p join clasificacion using(idclasificacion)";
         return executeQuery(query, false);
     }
 
     public List<Pelicula> buscar(String busqueda) {
-        query = "SELECT idpelicula, titulo, sinopsis, duracion, clasificacion FROM pelicula p join clasificacion using(idclasificacion) WHERE titulo like '%" + busqueda + "%'";
+        query = "SELECT idpelicula, titulo, sinopsis, duracion, idclasificacion, clasificacion FROM pelicula p join clasificacion using(idclasificacion) WHERE titulo like '%" + busqueda + "%'";
         return executeQuery(query, false);
     }
 
@@ -132,7 +140,8 @@ public class Pelicula {
                     pelicula.setSinopsis(resultSet.getString("sinopsis"));
                     pelicula.setDuracion(resultSet.getInt("duracion"));
                     pelicula.setIdclasificacion(resultSet.getInt("idclasificacion"));
-                    pelicula.setGeneros(aux.buscarId(idPelicula));
+                    pelicula.setClasificacion(resultSet.getString("clasificacion"));
+  //                  pelicula.setGeneros(aux.buscarId(idPelicula));
                     peliculas.add(pelicula);
                 }
             }
